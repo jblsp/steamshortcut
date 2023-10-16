@@ -71,37 +71,40 @@ void killSteam() {
 
 int main(int argc, char *argv[]) {
     
-    // TODO: check for args
     
     if (argc != 4) {
-        printf("Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID>\n", argv[0]);
+        printf("Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", argv[0]);
         return 1;
     }
 
-    const char* originalUsername = argv[1];
-    const char* cs2Username = argv[2];
-    const char* appID = argv[3];
+    printf("\033[1mSteam Shortcut\033[0m\n");
+    printf("Close this window at anytime to stop the program.\n\n");
+
+    const char* original_username = argv[1];
+    const char* alt_username = argv[2];
+    const char* app_ID = argv[3];
+    const char* process_name = argv[4];
     char steam_args[256];
 
     killSteam();
 
     printf("Relaunching Steam...\n");
     strcpy(steam_args, "-login ");
-    strcat(steam_args, cs2Username);
+    strcat(steam_args, alt_username);
     launchSteam(steam_args);
     
     // launch desired app
     strcpy(steam_args, "-applaunch ");
-    strcat(steam_args, appID);
+    strcat(steam_args, app_ID);
     launchSteam(steam_args);
 
-    printf("Waiting for CS2 to open...\n");
-    while (!IsProcessRunning("cs2.exe")) {
+    printf("Waiting for game to open...\n");
+    while (!IsProcessRunning(process_name)) {
         Sleep(1000); 
     }
 
-    printf("Waiting for CS2 to close...\n");
-    while (IsProcessRunning("cs2.exe")) {
+    printf("Waiting for game to close...\n");
+    while (IsProcessRunning(process_name)) {
         Sleep(1000);
     }
 
@@ -110,7 +113,7 @@ int main(int argc, char *argv[]) {
     // reopen steam with original account
     printf("Opening Steam...");
     strcpy(steam_args, "-login ");
-    strcat(steam_args, originalUsername);
+    strcat(steam_args, original_username);
     launchSteam(steam_args);
 
     return 0;
