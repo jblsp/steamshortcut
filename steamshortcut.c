@@ -72,13 +72,13 @@ void killSteam() {
 int main(int argc, char *argv[]) {
     
     
-    if (argc != 4) {
+    if (argc != 5) {
         printf("Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", argv[0]);
         return 1;
     }
 
     printf("\033[1mSteam Shortcut\033[0m\n");
-    printf("Close this window at anytime to stop the program.\n\n");
+    printf("Close this window at anytime to stop the process.\n\n");
 
     const char* original_username = argv[1];
     const char* alt_username = argv[2];
@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
     const char* process_name = argv[4];
     char steam_args[256];
 
+    // steam is killed so there is no waiting for steam to shutdown this process
     killSteam();
 
     printf("Relaunching Steam...\n");
