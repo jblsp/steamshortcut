@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("\033[1mSteam Shortcut\033[0m\n");
+    printf("\033[1mSteam Shortcut v1.0\033[0m\n");
     printf("Close this window at anytime to stop the process.\n\n");
 
     const char* original_username = argv[1];
