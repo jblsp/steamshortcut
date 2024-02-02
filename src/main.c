@@ -14,24 +14,26 @@ int main(int argc, char *argv[]) {
     printf("\033[1mSteam Shortcut v1.0\033[0m\n");
     printf("Close this window at anytime to stop the process.\n\n");
 
-    const char* original_username = argv[1];
+    const char* steam_username = argv[1];
     const char* alt_username = argv[2];
     const char* app_ID = argv[3];
     const char* process_name = argv[4];
-    char steam_args[256];
+    char steam_launch_args[128] = "-login ";
+    char steam_launch_args_alt[128] = "-login ";
+    char game_launch_args[32] = "-applaunch ";
 
-    // steam is killed so there is no waiting for steam to shutdown this process
+    strcat(steam_launch_args, steam_username);
+    strcat(steam_launch_args_alt, alt_username);
+    strcat(game_launch_args, app_ID);
+
+    // steam is killed so there is no waiting for steam to shutdown
     killSteam();
 
     printf("Relaunching Steam...\n");
-    strcpy(steam_args, "-login ");
-    strcat(steam_args, alt_username);
-    launchSteam(steam_args);
+    launchSteam(steam_launch_args_alt);
     
     // launch desired app
-    strcpy(steam_args, "-applaunch ");
-    strcat(steam_args, app_ID);
-    launchSteam(steam_args);
+    launchSteam(game_launch_args);
 
     printf("Waiting for game to open...\n");
     while (!IsProcessRunning(process_name)) {
@@ -47,9 +49,7 @@ int main(int argc, char *argv[]) {
 
     // reopen steam with original account
     printf("Opening Steam...");
-    strcpy(steam_args, "-login ");
-    strcat(steam_args, original_username);
-    launchSteam(steam_args);
+    launchSteam(steam_launch_args);
 
     return 0;
 }
