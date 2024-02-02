@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
     // reopen steam with original account
     printf("Opening Steam...");
     launchSteam(steam_launch_args);
-    sleep(2000);
+    Sleep(2000);
     
     return 0;
 }
