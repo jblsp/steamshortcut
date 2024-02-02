@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     sprintf(version, "%d.%d.%d", VMAJOR, VMINOR, VPATCH);
 
     if (argc != 5) {
-        printf("Steam Shortcut v%s\n Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", version, argv[0]);
+        printf("Steam Shortcut v%s\nUsage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", version, argv[0]);
         return 1;
     }
 
@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
     // reopen steam with original account
     printf("Opening Steam...");
     launchSteam(steam_launch_args);
-
+    sleep(2000);
+    
     return 0;
 }
