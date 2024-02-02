@@ -1,22 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include <windows.h>
-#include <tlhelp32.h>
 #include "launcher.h"
-
-void shutDownSteam() {
-    printf("Shutting down Steam...\n");
-    system("\"C:\\Program Files (x86)\\Steam\\steam.exe\" -shutdown");
-    while (IsProcessRunning("steam.exe")) {
-        Sleep(1000);  // Sleep for 1 second
-    }
-}
-
-void killSteam() {
-    system("taskkill /f /im steam.exe");
-}
-
 
 int main(int argc, char *argv[]) {
     if (argc != 5) {

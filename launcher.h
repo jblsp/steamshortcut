@@ -3,5 +3,7 @@
 
 void launchSteam(char *args);
 bool IsProcessRunning(const char* processName);
+void shutDownSteam();
+void killSteam();
 
 #endif
