@@ -1,5 +1,5 @@
 # Steam Shortcut
-Create a shortcut to a Steam game that is in the library of another user. When the game is closed, Steam will log back into the original account. Effectively "evade" a ban by opening a shortcut to the game on a banned account.
+Seamlessly launch a Steam game that is in the library of another user. This program automates the process of switching accounts (and switching back), and launching the game from the alternate account.
 
 Works by using [command line options](https://developer.valvesoftware.com/wiki/Command_line_options#Steam) to launch Steam ("-login" and "-applaunch" specifically).
 
