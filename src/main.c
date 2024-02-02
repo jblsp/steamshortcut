@@ -31,13 +31,11 @@ int main(int argc, char *argv[]) {
 
     printf("Relaunching Steam...\n");
     launchSteam(steam_launch_args_alt);
-    
-    // launch desired app
-    launchSteam(game_launch_args);
 
     printf("Waiting for game to open...\n");
     while (!IsProcessRunning(process_name)) {
-        Sleep(1000); 
+        launchSteam(game_launch_args);
+        Sleep(1000);
     }
 
     printf("Waiting for game to close...\n");
