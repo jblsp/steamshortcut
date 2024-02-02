@@ -1,8 +1,9 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <windows.h>
 #include <tlhelp32.h>
+#include "launcher.h"
 
 // Function to check if a process with the given name is running
 bool IsProcessRunning(const char* processName) {
@@ -35,32 +36,6 @@ void shutDownSteam() {
     system("\"C:\\Program Files (x86)\\Steam\\steam.exe\" -shutdown");
     while (IsProcessRunning("steam.exe")) {
         Sleep(1000);  // Sleep for 1 second
-    }
-}
-
-// Creates a separate process that launches steam so we don't get stuck on system()
-void launchSteam(char *args) {
-    char steamCmd[512];
-    strcpy(steamCmd, "\"C:\\Program Files (x86)\\Steam\\steam.exe\" ");
-    strcat(steamCmd, args);
-
-    STARTUPINFO si;
-    PROCESS_INFORMATION pi;
-    ZeroMemory(&si, sizeof(si));
-    si.cb = sizeof(si);
-    ZeroMemory(&pi, sizeof(pi));
-
-    // Create a non-const buffer for the command
-    char commandBuffer[MAX_PATH];
-    strncpy(commandBuffer, steamCmd, sizeof(commandBuffer));
-
-    if (CreateProcess(NULL, commandBuffer, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
-        // Successfully launched Steam, close the process and thread handles
-        CloseHandle(pi.hProcess);
-        CloseHandle(pi.hThread);
-    } else {
-        // Handle the error if Steam couldn't be launched
-        printf("Error launching Steam: %d\n", GetLastError());
     }
 }
 
