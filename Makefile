@@ -1,13 +1,13 @@
 CC = gcc
 
 steamshortcut: main.o launcher.o
-	$(CC) -o steamshortcut main.c launcher.o
+	$(CC) -o steamshortcut main.o launcher.o
 
-steamshortcut.o: main.c launcher.h
-	$(CC) -c main.c
+main.o: src/main.c src/launcher.h
+	$(CC) -c src/main.c -o main.o
 
-launcher.o: launcher.c launcher.h
-	$(CC) -c launcher.c
+launcher.o: src/launcher.c src/launcher.h
+	$(CC) -c src/launcher.c -o launcher.o
 
 clean:
 	rm -f steamshortcut *.o

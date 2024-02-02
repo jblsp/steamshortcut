@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <tlhelp32.h>
+#include <stdio.h>
 #include "launcher.h"
 
 void launchSteam(char *args) {
