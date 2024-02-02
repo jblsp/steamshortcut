@@ -5,32 +5,6 @@
 #include <tlhelp32.h>
 #include "launcher.h"
 
-// Function to check if a process with the given name is running
-bool IsProcessRunning(const char* processName) {
-    HANDLE hProcessSnap;
-    PROCESSENTRY32 pe32;
-    pe32.dwSize = sizeof(PROCESSENTRY32);
-
-    hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-
-    if (hProcessSnap == INVALID_HANDLE_VALUE) {
-        CloseHandle(hProcessSnap);
-        return false;
-    }
-
-    if (Process32First(hProcessSnap, &pe32)) {
-        do {
-            if (strstr(pe32.szExeFile, processName) != NULL) {
-                CloseHandle(hProcessSnap);
-                return true;
-            }
-        } while (Process32Next(hProcessSnap, &pe32));
-    }
-
-    CloseHandle(hProcessSnap);
-    return false;
-}
-
 void shutDownSteam() {
     printf("Shutting down Steam...\n");
     system("\"C:\\Program Files (x86)\\Steam\\steam.exe\" -shutdown");
@@ -45,8 +19,6 @@ void killSteam() {
 
 
 int main(int argc, char *argv[]) {
-    
-    
     if (argc != 5) {
         printf("Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", argv[0]);
         return 1;

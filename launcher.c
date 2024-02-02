@@ -1,5 +1,7 @@
 #include <windows.h>
 #include <string.h>
+#include <stdbool.h>
+#include <tlhelp32.h>
 #include "launcher.h"
 
 void launchSteam(char *args) {
@@ -14,4 +16,26 @@ void launchSteam(char *args) {
     si.cb = sizeof(si);
     PROCESS_INFORMATION pi;
     CreateProcess(NULL, path, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+}
+
+
+bool IsProcessRunning(const char* processName) {
+    // create a snapshot of the system's process list
+    // TH32CS_SNAPPROCESS specifies all processes in the system
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+
+    if (Process32First(hSnapshot, &pe32)) {
+        do {
+            if (strstr(pe32.szExeFile, processName)) {
+                CloseHandle(hSnapshot);
+                return true;
+            }
+        } while (Process32Next(hSnapshot, &pe32));
+    }
+
+    CloseHandle(hSnapshot);
+    return false;
 }
