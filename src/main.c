@@ -5,13 +5,23 @@
 #include <windows.h>
 #include "launcher.h"
 
+// Semantic Version Number
+#define VMAJOR 1
+#define VMINOR 1
+#define VPATCH 0
+
 int main(int argc, char *argv[]) {
+
+    char version[16];  // Assuming a maximum of 20 characters for the version string
+
+    sprintf(version, "%d.%d.%d", VMAJOR, VMINOR, VPATCH);
+
     if (argc != 5) {
-        printf("Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", argv[0]);
+        printf("Steam Shortcut v%s\n Usage: %s <mainAccountUsername> <targetAccountUsername> <steamappID> <processName>\n", version, argv[0]);
         return 1;
     }
 
-    printf("\033[1mSteam Shortcut v1.0\033[0m\n");
+    printf("\033[1mSteam Shortcut v%s\033[0m\n", version);
     printf("Close this window at anytime to stop the process.\n\n");
 
     const char* steam_username = argv[1];
